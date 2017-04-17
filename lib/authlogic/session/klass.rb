@@ -57,13 +57,15 @@ module Authlogic
 
         private
 
-          def klass
-            self.class.klass
-          end
+        def klass
+          authenticate_with_class = controller.session['authenticate_with_class'].try(:constantize)
+          authenticate_with_class || self.class.klass
+        end
 
-          def klass_name
-            self.class.klass_name
-          end
+        def klass_name
+          authenticate_with_class = controller.session['authenticate_with_class']
+          authenticate_with_class || self.class.klass_name
+        end
       end
     end
   end
